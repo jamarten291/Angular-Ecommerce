@@ -1,4 +1,4 @@
-import { Component, inject, Input, signal } from '@angular/core';
+import { Component, inject, Input, signal, OnInit } from '@angular/core';
 import { Product } from '@shared/models/product.model';
 import { ProductService } from '@shared/services/product.service';
 import { CurrencyPipe } from '@angular/common';
@@ -11,7 +11,7 @@ import { CartService } from '@shared/services/cart.service';
   templateUrl: './product-detail.html',
   styleUrl: './product-detail.css',
 })
-export default class ProductDetail {
+export default class ProductDetail implements OnInit {
   @Input() id?: string;
   product = signal<Product | null>(null);
   cover = signal('');

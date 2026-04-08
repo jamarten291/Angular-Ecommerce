@@ -11,10 +11,13 @@
       <div class="grid grid-cols-3 gap-1">
         @for (image of product()?.images; track $index) {
           <img
+            tabindex="0"
+            role="button"
             alt="ecommerce"
             class="object-cover object-center rounded border-2 border-gray-200"
             [src]="image"
             (click)="changeCoverImage(image)"
+            (keydown.enter)="changeCoverImage(image)"
             [class.border-red-400]="image === cover()"
           />
         }

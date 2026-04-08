@@ -1,4 +1,4 @@
-import { Component, computed, inject, Input, signal } from '@angular/core';
+import { Component, inject, Input, signal, OnInit, OnChanges } from '@angular/core';
 import { Product } from '@shared/models/product.model';
 import { ProductComponent } from '@products/components/product/product.component';
 import { CartService } from '@shared/services/cart.service';
@@ -14,7 +14,7 @@ import { RouterLink } from "@angular/router";
   styleUrl: './list.css',
 })
 
-export default class List {
+export default class List implements OnInit, OnChanges {
   private cartService = inject(CartService);
   private productService = inject(ProductService);
   private categoryService = inject(CategoryService);
