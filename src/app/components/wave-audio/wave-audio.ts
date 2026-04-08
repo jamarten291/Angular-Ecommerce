@@ -9,7 +9,7 @@ import { signal } from 'wavesurfer.js/dist/reactive/store.js';
   styleUrl: './wave-audio.css',
 })
 export class WaveAudio implements AfterViewInit {
-  @Input({required: true}) audioUrl!: string;
+  @Input({ required: true }) audioUrl!: string;
   @ViewChild('wave') container!: ElementRef;
   isPlaying = signal(false);
   private wsRef!: WaveSurfer;
@@ -17,7 +17,7 @@ export class WaveAudio implements AfterViewInit {
   ngAfterViewInit() {
     this.wsRef = WaveSurfer.create({
       url: this.audioUrl,
-      container: this.container.nativeElement
+      container: this.container.nativeElement,
     });
 
     this.wsRef.on('play', () => this.isPlaying.set(true));

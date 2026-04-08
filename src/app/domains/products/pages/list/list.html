@@ -1,31 +1,27 @@
 <div class="flex space-x-4 mt-5">
-    <div class="w-50 flex flex-col ">
-        <button 
-            routerLink="/"
-            class="p-1 m-1 bg-blue-600 text-white hover:bg-blue-800 cursor-pointer">
-            All
-        </button>
-        @for (category of categories(); track $index) {
-            <button 
-                routerLink="/"
-                [queryParams]="{ categoryId: category.id }"
-                class="p-1 m-1 bg-blue-600 text-white hover:bg-blue-800 cursor-pointer">
-                {{ category.name }}
-            </button>
-        }
-    </div>
-    @if (products().length === 0) {
-        <div class="min-h-screen justify-center w-full">
-            <p class="text-center text-gray-500">No products available</p>
-        </div>
-    } @else {
-        <div class="grid grid-cols-4 gap-8 w-full">
-            @for (product of products(); track $index) {
-                <app-product [product]="product">
-                </app-product>
-            }
-        </div>
+  <div class="w-50 flex flex-col">
+    <button routerLink="/" class="p-1 m-1 bg-blue-600 text-white hover:bg-blue-800 cursor-pointer">
+      All
+    </button>
+    @for (category of categories(); track $index) {
+      <button
+        routerLink="/"
+        [queryParams]="{ categoryId: category.id }"
+        class="p-1 m-1 bg-blue-600 text-white hover:bg-blue-800 cursor-pointer"
+      >
+        {{ category.name }}
+      </button>
     }
+  </div>
+  @if (products().length === 0) {
+    <div class="min-h-screen justify-center w-full">
+      <p class="text-center text-gray-500">No products available</p>
+    </div>
+  } @else {
+    <div class="grid grid-cols-4 gap-8 w-full">
+      @for (product of products(); track $index) {
+        <app-product [product]="product"> </app-product>
+      }
+    </div>
+  }
 </div>
-
-

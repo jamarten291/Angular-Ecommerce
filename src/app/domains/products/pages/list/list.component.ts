@@ -5,7 +5,7 @@ import { CartService } from '@shared/services/cart.service';
 import { ProductService } from '@shared/services/product.service';
 import { CategoryService } from '@shared/services/category.service';
 import { Category } from '@shared/models/category.model';
-import { RouterLink } from "@angular/router";
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-list',
@@ -13,7 +13,6 @@ import { RouterLink } from "@angular/router";
   templateUrl: './list.html',
   styleUrl: './list.css',
 })
-
 export default class List implements OnInit, OnChanges {
   private cartService = inject(CartService);
   private productService = inject(ProductService);
@@ -32,19 +31,17 @@ export default class List implements OnInit, OnChanges {
   }
 
   fetchProducts() {
-    this.productService.getProducts(this.categoryId)
-      .subscribe({
-        next: (response) => this.products.set(response),
-        error: (err) => console.error(err)
-      });
+    this.productService.getProducts(this.categoryId).subscribe({
+      next: (response) => this.products.set(response),
+      error: (err) => console.error(err),
+    });
   }
 
   fetchCategories() {
-    this.categoryService.getCategories()
-      .subscribe({
-        next: (response) => this.categories.set(response),
-        error: (err) => console.error(err)
-      });
+    this.categoryService.getCategories().subscribe({
+      next: (response) => this.categories.set(response),
+      error: (err) => console.error(err),
+    });
   }
 
   addToCart(product: Product) {

@@ -1,6 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { CartService } from '../../services/cart.service';
-import { RouterLink, RouterLinkActive } from "@angular/router";
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -15,6 +15,6 @@ export class Header {
   totalPrice = this.cartService.totalPrice;
 
   toggleShoppingCart() {
-    this.hideShoppingCart.update(value => !value);
+    this.hideShoppingCart.update((value) => !value);
   }
 }

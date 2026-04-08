@@ -44,11 +44,9 @@ export class TimeAgoPipe implements PipeTransform {
     const years = Math.floor(months / 12);
     return `Hace ${years} ${years == 1 ? 'año' : 'años'}`
     */
-    return formatDistanceToNow(new Date(value), 
-      {
-        addSuffix: true,
-        locale: es
-      }
-    );
+    return formatDistanceToNow(new Date(value), {
+      addSuffix: true,
+      locale: es,
+    });
   }
 }

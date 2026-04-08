@@ -22,10 +22,9 @@ export default class ProductDetail implements OnInit {
   ngOnInit() {
     const productId = this.id;
     if (productId) {
-      this.productService.getOne(productId)
-      .subscribe({
-        next: (product) => this.handleProduct(product)
-      })
+      this.productService.getOne(productId).subscribe({
+        next: (product) => this.handleProduct(product),
+      });
     }
   }
 
@@ -33,7 +32,7 @@ export default class ProductDetail implements OnInit {
     this.product.set(product);
     const imageArray = product.images;
     if (imageArray) {
-      this.cover.set(imageArray[0])
+      this.cover.set(imageArray[0]);
     }
   }
 

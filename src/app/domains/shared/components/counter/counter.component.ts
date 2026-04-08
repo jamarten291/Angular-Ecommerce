@@ -1,4 +1,13 @@
-import { Component, Input, SimpleChanges, signal, OnChanges, OnInit, DoCheck, OnDestroy } from '@angular/core';
+import {
+  Component,
+  Input,
+  SimpleChanges,
+  signal,
+  OnChanges,
+  OnInit,
+  DoCheck,
+  OnDestroy,
+} from '@angular/core';
 
 @Component({
   selector: 'app-counter',
@@ -7,8 +16,8 @@ import { Component, Input, SimpleChanges, signal, OnChanges, OnInit, DoCheck, On
   styleUrl: './counter.css',
 })
 export class Counter implements OnChanges, OnInit, DoCheck, OnDestroy {
-  @Input({required: true}) duration = 0;
-  @Input({required: true}) message = '';
+  @Input({ required: true }) duration = 0;
+  @Input({ required: true }) message = '';
   counter = signal(0);
   counterRef: number | undefined;
 
@@ -19,7 +28,7 @@ export class Counter implements OnChanges, OnInit, DoCheck, OnDestroy {
   ngOnChanges(changes: SimpleChanges) {
     console.log('ngOnChanges executed.', changes);
     const change = changes['duration'];
-    
+
     if (change && change.currentValue != change.previousValue) {
       console.log('cambio detectado');
     }
@@ -28,11 +37,11 @@ export class Counter implements OnChanges, OnInit, DoCheck, OnDestroy {
   ngOnInit() {
     console.log('ngOnInit executed.');
     let counterValue = this.counter();
-    
-    this.counterRef = window.setInterval(() => { 
+
+    this.counterRef = window.setInterval(() => {
       console.log('running counter');
-      this.counter.update(() => counterValue += 1);
-    }, 1000)
+      this.counter.update(() => (counterValue += 1));
+    }, 1000);
   }
 
   ngDoCheck() {
@@ -40,7 +49,7 @@ export class Counter implements OnChanges, OnInit, DoCheck, OnDestroy {
   }
 
   ngOnDestroy() {
-    window.clearInterval(this.counterRef)
+    window.clearInterval(this.counterRef);
     console.log('ngOnDestroy executed.');
   }
 }

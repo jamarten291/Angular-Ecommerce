@@ -6,7 +6,6 @@ import { RouterOutlet } from '@angular/router';
   imports: [RouterOutlet],
   template: '<router-outlet />',
 })
-
 export class App {
   protected readonly title = signal('store');
 }

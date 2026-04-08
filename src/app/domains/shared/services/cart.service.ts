@@ -9,11 +9,11 @@ export class CartService {
   totalPrice = computed(() => {
     const cart = this.cart();
     let sum = 0;
-    cart.forEach((product) => sum += product.price);
+    cart.forEach((product) => (sum += product.price));
     return sum;
-  })
+  });
 
   addToCart(product: Product) {
-    this.cart.update(value => [...value, product]);
+    this.cart.update((value) => [...value, product]);
   }
 }

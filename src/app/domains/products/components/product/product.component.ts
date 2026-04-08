@@ -3,7 +3,7 @@ import { Product } from '@shared/models/product.model';
 import { CartService } from '@shared/services/cart.service';
 import { UpperCasePipe, CurrencyPipe } from '@angular/common';
 import { TimeAgoPipe } from '@shared/pipes/time-ago.pipe';
-import { RouterLink } from "@angular/router";
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-product',
@@ -12,7 +12,7 @@ import { RouterLink } from "@angular/router";
   styleUrl: './product.css',
 })
 export class ProductComponent {
-  @Input({required: true}) product!: Product;
+  @Input({ required: true }) product!: Product;
   private cartService = inject(CartService);
 
   addToCartHandler() {
