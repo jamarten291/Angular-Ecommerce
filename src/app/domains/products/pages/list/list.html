@@ -13,15 +13,16 @@
       </button>
     }
   </div>
-  @if (products().length === 0) {
-    <div class="min-h-screen justify-center w-full">
-      <p class="text-center text-gray-500">No products available</p>
-    </div>
-  } @else {
+  @let data = products();
+  @if (data && data.length > 0) {
     <div class="grid grid-cols-4 gap-8 w-full">
-      @for (product of products(); track $index) {
+      @for (product of data; track $index) {
         <app-product [product]="product"> </app-product>
       }
+    </div>
+  } @else {
+    <div class="min-h-screen justify-center w-full">
+      <p class="text-center text-gray-500">No products available</p>
     </div>
   }
 </div>
