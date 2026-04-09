@@ -1,13 +1,13 @@
 import { Component, inject, Input, signal, OnInit } from '@angular/core';
 import { Product } from '@shared/models/product.model';
 import { ProductService } from '@shared/services/product.service';
-import { CurrencyPipe } from '@angular/common';
+import { CurrencyPipe, NgOptimizedImage } from '@angular/common';
 import { UpperCasePipe } from '@angular/common';
 import { CartService } from '@shared/services/cart.service';
 
 @Component({
   selector: 'app-product-detail',
-  imports: [CurrencyPipe, UpperCasePipe],
+  imports: [CurrencyPipe, UpperCasePipe, NgOptimizedImage],
   templateUrl: './product-detail.html',
   styleUrl: './product-detail.css',
 })
