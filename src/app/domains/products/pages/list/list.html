@@ -1,6 +1,9 @@
 <div class="flex space-x-4">
   <div class="w-50 max-h-[calc(100dvh-4rem)] flex flex-col overflow-y-auto sticky top-16">
-    <button routerLink="/" class="p-1 m-1 bg-blue-600 text-white hover:bg-blue-800 cursor-pointer">
+    <button
+      [routerLink]="['/']"
+      class="p-1 m-1 bg-blue-600 text-white hover:bg-blue-800 cursor-pointer"
+    >
       All
     </button>
     @for (category of categories(); track category) {
@@ -13,10 +16,9 @@
       </button>
     }
   </div>
-  @let data = filteredProducts();
-  @if (data && data.length > 0) {
+  @if (filteredProducts().length > 0) {
     <div class="w-full grid grid-cols-4 gap-8">
-      @for (product of data; track product) {
+      @for (product of filteredProducts(); track product) {
         <app-product [product]="product"> </app-product>
       }
     </div>
