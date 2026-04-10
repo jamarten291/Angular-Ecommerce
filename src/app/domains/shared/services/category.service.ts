@@ -12,4 +12,8 @@ export class CategoryService {
   getCategories() {
     return this.http.get<Category[]>(`${environment.apiUrl}/api/v1/categories`);
   }
+
+  getOneBySlug(slug: string) {
+    return this.http.get<Category>(`${environment.apiUrl}/api/v1/categories/slug/${slug}`);
+  }
 }

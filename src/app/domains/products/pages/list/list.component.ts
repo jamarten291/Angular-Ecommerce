@@ -1,4 +1,5 @@
-import { Component, inject, Input, signal, OnInit, OnChanges } from '@angular/core';
+/* eslint-disable prettier/prettier */
+import { Component, inject, signal, OnInit, computed } from '@angular/core';
 import { Product } from '@shared/models/product.model';
 import { ProductComponent } from '@products/components/product/product.component';
 import { CartService } from '@shared/services/cart.service';
@@ -13,25 +14,30 @@ import { RouterLink } from '@angular/router';
   templateUrl: './list.html',
   styleUrl: './list.css',
 })
-export default class List implements OnInit, OnChanges {
+export default class List implements OnInit {
   private cartService = inject(CartService);
   private productService = inject(ProductService);
   private categoryService = inject(CategoryService);
 
   products = signal<Product[]>([]);
   categories = signal<Category[]>([]);
-  @Input() categoryId?: string;
+  currentCategoryId = signal<number | null>(null);
+  filteredProducts = computed(() => {
+    const categoryId = this.currentCategoryId();
+    const products = this.products();
+    if (categoryId) {
+      return products.filter((product) => product.category.id === categoryId);
+    }
+    return products;
+  });
 
   ngOnInit() {
     this.fetchCategories();
-  }
-
-  ngOnChanges() {
     this.fetchProducts();
   }
 
   fetchProducts() {
-    this.productService.getProducts(this.categoryId).subscribe({
+    this.productService.getProducts().subscribe({
       next: (response) => this.products.set(response),
       error: (err) => console.error(err),
     });
@@ -46,5 +52,9 @@ export default class List implements OnInit, OnChanges {
 
   addToCart(product: Product) {
     this.cartService.addToCart(product);
+  }
+
+  switchCurrentCategory(categoryId: number) {
+    this.currentCategoryId.set(categoryId);
   }
 }

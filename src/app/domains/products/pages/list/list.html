@@ -3,20 +3,20 @@
     <button routerLink="/" class="p-1 m-1 bg-blue-600 text-white hover:bg-blue-800 cursor-pointer">
       All
     </button>
-    @for (category of categories(); track $index) {
+    @for (category of categories(); track category) {
       <button
-        routerLink="/"
-        [queryParams]="{ categoryId: category.id }"
+        [routerLink]="['/category', category.slug]"
         class="p-1 m-1 bg-blue-600 text-white hover:bg-blue-800 cursor-pointer"
+        (click)="switchCurrentCategory(category.id)"
       >
         {{ category.name }}
       </button>
     }
   </div>
-  @let data = products();
+  @let data = filteredProducts();
   @if (data && data.length > 0) {
     <div class="w-full grid grid-cols-4 gap-8">
-      @for (product of data; track $index) {
+      @for (product of data; track product) {
         <app-product [product]="product"> </app-product>
       }
     </div>

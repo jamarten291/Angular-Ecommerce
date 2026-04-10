@@ -12,7 +12,7 @@ import { CartService } from '@shared/services/cart.service';
   styleUrl: './product-detail.css',
 })
 export default class ProductDetail implements OnInit {
-  @Input() id?: string;
+  @Input() slug?: string;
   product = signal<Product | null>(null);
   cover = signal('');
   cartService = inject(CartService);
@@ -20,10 +20,11 @@ export default class ProductDetail implements OnInit {
   private productService = inject(ProductService);
 
   ngOnInit() {
-    const productId = this.id;
-    if (productId) {
-      this.productService.getOne(productId).subscribe({
+    const productSlug = this.slug;
+    if (productSlug) {
+      this.productService.getOneBySlug(productSlug).subscribe({
         next: (product) => this.handleProduct(product),
+        error: (err) => console.error(err),
       });
     }
   }
