@@ -1,13 +1,4 @@
-import {
-  Component,
-  Input,
-  SimpleChanges,
-  signal,
-  OnChanges,
-  OnInit,
-  DoCheck,
-  OnDestroy,
-} from '@angular/core';
+import { Component, signal, OnInit, DoCheck, OnDestroy, input, effect } from '@angular/core';
 
 @Component({
   selector: 'app-counter',
@@ -15,16 +6,22 @@ import {
   templateUrl: './counter.html',
   styleUrl: './counter.css',
 })
-export class Counter implements OnChanges, OnInit, DoCheck, OnDestroy {
-  @Input({ required: true }) duration = 0;
-  @Input({ required: true }) message = '';
+export class Counter implements OnInit, DoCheck, OnDestroy {
+  duration = input.required<number>();
+  message = input.required<string>();
   counter = signal(0);
   counterRef: number | undefined;
 
   constructor() {
     console.log('Constructor executed.');
+
+    effect(() => {
+      const duration = this.duration();
+      console.log('Duration changed: ', duration);
+    });
   }
 
+  /*
   ngOnChanges(changes: SimpleChanges) {
     console.log('ngOnChanges executed.', changes);
     const change = changes['duration'];
@@ -33,6 +30,7 @@ export class Counter implements OnChanges, OnInit, DoCheck, OnDestroy {
       console.log('cambio detectado');
     }
   }
+  */
 
   ngOnInit() {
     console.log('ngOnInit executed.');

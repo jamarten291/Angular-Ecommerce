@@ -1,9 +1,12 @@
 <div class="px-10">
   <h1 class="font-bold text-lg">About</h1>
   <p class="text-sm">
-    Lorem ipsum dolor sit amet, <span highlight>consectetur adipisicing elit</span>. Incidunt
+    Lorem ipsum dolor sit amet, <span appHighlight>consectetur adipisicing elit</span>. Incidunt
     laboriosam possimus labore modi quisquam facere perspiciatis quibusdam quidem nam libero!
     Facilis quo totam dignissimos eveniet neque nemo dolor obcaecati consequatur.
+  </p>
+  <p>
+    <input [(ngModel)]="duration" type="range" min="0" max="1000" />
   </p>
   <p class="text-sm">
     Número de clientes: <app-counter [duration]="duration()" [message]="message()" />
