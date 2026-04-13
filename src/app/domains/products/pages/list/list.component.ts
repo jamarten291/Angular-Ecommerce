@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { Component, inject, signal, OnInit, computed } from '@angular/core';
 import { Product } from '@shared/models/product.model';
 import { ProductComponent } from '@products/components/product/product.component';
