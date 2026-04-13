@@ -1,4 +1,4 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { Product } from '@shared/models/product.model';
 import { CartService } from '@shared/services/cart.service';
 import { UpperCasePipe, CurrencyPipe, NgOptimizedImage } from '@angular/common';
@@ -12,10 +12,10 @@ import { RouterLink } from '@angular/router';
   styleUrl: './product.css',
 })
 export class ProductComponent {
-  @Input({ required: true }) product!: Product;
+  readonly product = input.required<Product>();
   private cartService = inject(CartService);
 
   addToCartHandler() {
-    this.cartService.addToCart(this.product);
+    this.cartService.addToCart(this.product());
   }
 }

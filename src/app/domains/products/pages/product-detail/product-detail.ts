@@ -1,4 +1,4 @@
-import { Component, inject, Input, signal, OnInit } from '@angular/core';
+import { Component, inject, signal, OnInit, input } from '@angular/core';
 import { Product } from '@shared/models/product.model';
 import { ProductService } from '@shared/services/product.service';
 import { CurrencyPipe, NgOptimizedImage } from '@angular/common';
@@ -12,7 +12,7 @@ import { CartService } from '@shared/services/cart.service';
   styleUrl: './product-detail.css',
 })
 export default class ProductDetail implements OnInit {
-  @Input() slug?: string;
+  readonly slug = input<string>();
   product = signal<Product | null>(null);
   cover = signal('');
   cartService = inject(CartService);
@@ -20,7 +20,7 @@ export default class ProductDetail implements OnInit {
   private productService = inject(ProductService);
 
   ngOnInit() {
-    const productSlug = this.slug;
+    const productSlug = this.slug();
     if (productSlug) {
       this.productService.getOneBySlug(productSlug).subscribe({
         next: (product) => this.handleProduct(product),
