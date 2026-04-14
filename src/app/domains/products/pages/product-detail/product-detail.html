@@ -1,4 +1,5 @@
 @let data = product();
+@let image = cover();
 
 @if (data) {
   <div class="w-full flex space-x-10">
@@ -8,7 +9,7 @@
           <img
             alt="ecommerce"
             class="w-full object-cover object-center"
-            [ngSrc]="cover()"
+            [ngSrc]="image ?? ''"
             [fill]="true"
             loading="lazy"
           />
