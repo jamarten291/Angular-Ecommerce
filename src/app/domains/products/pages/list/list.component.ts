@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { Product } from '@shared/models/product.model';
 import { ProductComponent } from '@products/components/product/product.component';
 import { CartService } from '@shared/services/cart.service';
@@ -21,18 +21,16 @@ export default class List {
   categories = rxResource({
     stream: () => this.categoryService.getCategories(),
   });
-  currentCategoryId = signal<number | null>(null);
+  // Este input puede o no recibir un slug de categoría, dependiendo de la ruta.
+  // Si no recibe ninguno, se mostrarán todos los productos.
+  slug = input<string | undefined>(undefined);
   products = rxResource({
-    params: () => ({ categoryId: this.currentCategoryId() }),
-    // TODO fix problem with products not loading when switching category for the first time, but works on subsequent switches
-    stream: ({ params }) => this.productService.getProducts(String(params.categoryId)),
+    // Cada vez que se cambie el slug, se volverán a cargar los productos con el nuevo filtro.
+    params: () => ({ categorySlug: this.slug() }),
+    stream: ({ params }) => this.productService.getProducts(params),
   });
 
   addToCart(product: Product) {
     this.cartService.addToCart(product);
-  }
-
-  switchCurrentCategory(categoryId: number) {
-    this.currentCategoryId.set(categoryId);
   }
 }

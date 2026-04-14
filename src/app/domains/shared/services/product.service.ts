@@ -9,10 +9,10 @@ import { environment } from '@env/environment';
 export class ProductService {
   private http = inject(HttpClient);
 
-  getProducts(categoryId?: string) {
+  getProducts(params: { categorySlug?: string }) {
     const url = new URL(`${environment.apiUrl}/api/v1/products`);
-    if (categoryId) {
-      url.searchParams.set('categoryId', categoryId);
+    if (params.categorySlug) {
+      url.searchParams.set('categorySlug', params.categorySlug);
     }
     return this.http.get<Product[]>(url.toString());
   }
