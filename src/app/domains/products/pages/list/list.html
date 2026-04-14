@@ -6,7 +6,7 @@
     >
       All
     </button>
-    @for (category of categories(); track category) {
+    @for (category of categories.value(); track category) {
       <button
         [routerLink]="['/category', category.slug]"
         class="p-1 m-1 bg-blue-600 text-white hover:bg-blue-800 cursor-pointer"
@@ -16,9 +16,10 @@
       </button>
     }
   </div>
-  @if (filteredProducts().length > 0) {
+  @let data = products.value();
+  @if (data && data.length > 0) {
     <div class="w-full grid grid-cols-4 gap-8">
-      @for (product of filteredProducts(); track product) {
+      @for (product of data; track product) {
         <app-product [product]="product"> </app-product>
       }
     </div>
