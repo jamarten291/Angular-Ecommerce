@@ -30,9 +30,8 @@ export default class ProductDetail implements OnInit {
   ngOnInit() {
     const productSlug = this.slug();
     if (productSlug) {
-      this.productService.getOneBySlug(productSlug).subscribe({
-        next: (product) => this.product.set(product),
-        error: (err) => console.error(err),
+      this.productService.getOneBySlug(productSlug).then((product) => {
+        this.product.set(product);
       });
     }
   }

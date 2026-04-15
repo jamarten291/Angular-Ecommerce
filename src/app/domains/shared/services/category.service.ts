@@ -1,5 +1,4 @@
-import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Category } from '@shared/models/category.model';
 import { environment } from '@env/environment';
 
@@ -7,9 +6,9 @@ import { environment } from '@env/environment';
   providedIn: 'root',
 })
 export class CategoryService {
-  private http = inject(HttpClient);
-
-  getCategories() {
-    return this.http.get<Category[]>(`${environment.apiUrl}/api/v1/categories`);
+  async getCategories(): Promise<Category[]> {
+    return await fetch(`${environment.apiUrl}/api/v1/categories`)
+      .then((response) => response.json())
+      .then((data: Category[]) => data);
   }
 }

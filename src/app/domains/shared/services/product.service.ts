@@ -1,5 +1,4 @@
-import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Product } from '@shared/models/product.model';
 import { environment } from '@env/environment';
 
@@ -7,21 +6,25 @@ import { environment } from '@env/environment';
   providedIn: 'root',
 })
 export class ProductService {
-  private http = inject(HttpClient);
-
-  getProducts(params: { categorySlug?: string }) {
+  async getProducts(params: { categorySlug?: string }): Promise<Product[]> {
     const url = new URL(`${environment.apiUrl}/api/v1/products`);
     if (params.categorySlug) {
       url.searchParams.set('categorySlug', params.categorySlug);
     }
-    return this.http.get<Product[]>(url.toString());
+    return await fetch(url.toString())
+      .then((response) => response.json())
+      .then((data: Product[]) => data);
   }
 
-  getOneById(id: string) {
-    return this.http.get<Product>(`${environment.apiUrl}/api/v1/products/${id}`);
+  async getOneById(id: string): Promise<Product> {
+    return await fetch(`${environment.apiUrl}/api/v1/products/${id}`)
+      .then((response) => response.json())
+      .then((data: Product) => data);
   }
 
-  getOneBySlug(slug: string) {
-    return this.http.get<Product>(`${environment.apiUrl}/api/v1/products/slug/${slug}`);
+  async getOneBySlug(slug: string): Promise<Product> {
+    return await fetch(`${environment.apiUrl}/api/v1/products/slug/${slug}`)
+      .then((response) => response.json())
+      .then((data: Product) => data);
   }
 }
