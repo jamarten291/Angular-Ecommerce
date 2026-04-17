@@ -18,7 +18,7 @@ export default class Locations {
   constructor() {
     afterNextRender(() => {
       navigator.geolocation.getCurrentPosition((position) => {
-        console.log(position);
+        console.log(`${position.coords.latitude},${position.coords.longitude}`);
         this.origin.set(`${position.coords.latitude},${position.coords.longitude}`);
       });
     });
