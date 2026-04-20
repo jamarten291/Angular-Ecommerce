@@ -9,7 +9,7 @@ export class LocationService {
   async getLocations(params: { origin?: string }): Promise<Location[]> {
     const url = new URL(`${environment.apiUrl}/api/v1/locations`);
     if (params.origin) {
-      url.searchParams.set('origin', origin);
+      url.searchParams.set('origin', params.origin);
     }
     return await fetch(url.toString())
       .then((response) => response.json())
