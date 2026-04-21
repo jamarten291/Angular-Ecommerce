@@ -1,9 +1,9 @@
-import { Component, inject, input, linkedSignal, effect, resource } from '@angular/core';
+import { Component, inject, input, linkedSignal, resource, OnInit } from '@angular/core';
 import { ProductService } from '@shared/services/product.service';
 import { CurrencyPipe, NgOptimizedImage } from '@angular/common';
 import { UpperCasePipe } from '@angular/common';
 import { CartService } from '@shared/services/cart.service';
-import { Meta, Title } from '@angular/platform-browser';
+import { MetaTags } from '@shared/services/meta-tags.service';
 
 @Component({
   selector: 'app-product-detail',
@@ -11,11 +11,10 @@ import { Meta, Title } from '@angular/platform-browser';
   templateUrl: './product-detail.html',
   styleUrl: './product-detail.css',
 })
-export default class ProductDetail {
+export default class ProductDetail implements OnInit {
   cartService = inject(CartService);
   private productService = inject(ProductService);
-  titleService = inject(Title);
-  metaService = inject(Meta);
+  private metadataService = inject(MetaTags);
 
   readonly slug = input.required<string>();
   productResource = resource({
@@ -32,24 +31,14 @@ export default class ProductDetail {
     },
   });
 
-  constructor() {
-    effect(() => {
-      const product = this.productResource.value();
-      if (product) {
-        this.titleService.setTitle(product.title);
-        this.metaService.updateTag({
-          name: 'description',
-          content: product.description,
-        });
-        this.metaService.updateTag({
-          name: 'og:title',
-          content: product.title,
-        });
-        this.metaService.updateTag({
-          name: 'og:description',
-          content: product.description,
-        });
-      }
+  ngOnInit() {
+    this.productService.getOneBySlug(this.slug()).then((product) => {
+      // Actualizar metadatos con información del producto
+      this.metadataService.updateMetaTags({
+        title: product.title,
+        description: product.description,
+        image: product.images[0],
+      });
     });
   }
 
