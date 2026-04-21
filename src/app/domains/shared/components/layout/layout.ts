@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Header } from '../header/header.component';
 import { RouterOutlet } from '@angular/router';
 
@@ -7,5 +7,6 @@ import { RouterOutlet } from '@angular/router';
   imports: [Header, RouterOutlet],
   templateUrl: './layout.html',
   styleUrl: './layout.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Layout {}

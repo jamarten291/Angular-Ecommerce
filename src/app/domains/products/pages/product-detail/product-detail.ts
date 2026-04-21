@@ -1,4 +1,12 @@
-import { Component, inject, input, linkedSignal, resource, OnInit } from '@angular/core';
+import {
+  Component,
+  inject,
+  input,
+  linkedSignal,
+  resource,
+  OnInit,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { ProductService } from '@shared/services/product.service';
 import { CurrencyPipe, NgOptimizedImage } from '@angular/common';
 import { UpperCasePipe } from '@angular/common';
@@ -11,6 +19,7 @@ import { Related } from '@products/components/related/related.component';
   imports: [CurrencyPipe, UpperCasePipe, NgOptimizedImage, Related],
   templateUrl: './product-detail.html',
   styleUrl: './product-detail.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class ProductDetail implements OnInit {
   cartService = inject(CartService);

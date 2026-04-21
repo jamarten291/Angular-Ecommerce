@@ -1,4 +1,4 @@
-import { Component, inject, input, resource } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input, resource } from '@angular/core';
 import { ProductService } from '@shared/services/product.service';
 import { ProductComponent } from '../product/product.component';
 
@@ -6,6 +6,7 @@ import { ProductComponent } from '../product/product.component';
   selector: 'app-related',
   imports: [ProductComponent],
   templateUrl: './related.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Related {
   productService = inject(ProductService);

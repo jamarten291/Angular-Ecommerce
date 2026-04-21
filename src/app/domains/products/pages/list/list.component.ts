@@ -1,4 +1,4 @@
-import { Component, inject, input, resource } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input, resource } from '@angular/core';
 import { Product } from '@shared/models/product.model';
 import { ProductComponent } from '@products/components/product/product.component';
 import { CartService } from '@shared/services/cart.service';
@@ -11,6 +11,7 @@ import { RouterLink } from '@angular/router';
   imports: [ProductComponent, RouterLink],
   templateUrl: './list.html',
   styleUrl: './list.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class List {
   private cartService = inject(CartService);

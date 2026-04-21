@@ -1,10 +1,18 @@
-import { Component, signal, OnDestroy, input, afterNextRender } from '@angular/core';
+import {
+  Component,
+  signal,
+  OnDestroy,
+  input,
+  afterNextRender,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 
 @Component({
   selector: 'app-counter',
   imports: [],
   templateUrl: './counter.html',
   styleUrl: './counter.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Counter implements OnDestroy {
   duration = input.required<number>();

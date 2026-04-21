@@ -1,4 +1,4 @@
-import { Component, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 import { Product } from '@shared/models/product.model';
 import { CartService } from '@shared/services/cart.service';
 import { UpperCasePipe, CurrencyPipe, NgOptimizedImage } from '@angular/common';
@@ -10,6 +10,7 @@ import { RouterLink } from '@angular/router';
   imports: [UpperCasePipe, CurrencyPipe, TimeAgoPipe, RouterLink, NgOptimizedImage],
   templateUrl: './product.html',
   styleUrl: './product.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductComponent {
   readonly product = input.required<Product>();

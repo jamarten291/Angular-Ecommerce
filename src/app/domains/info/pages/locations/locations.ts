@@ -1,10 +1,18 @@
-import { afterNextRender, Component, inject, resource, signal } from '@angular/core';
+import {
+  afterNextRender,
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  resource,
+  signal,
+} from '@angular/core';
 import { LocationService } from '@shared/services/location.service';
 
 @Component({
   selector: 'app-locations',
   imports: [],
   templateUrl: './locations.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class Locations {
   locationService = inject(LocationService);

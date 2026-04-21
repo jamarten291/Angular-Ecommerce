@@ -1,4 +1,8 @@
-import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
+import {
+  ApplicationConfig,
+  provideBrowserGlobalErrorListeners,
+  provideZonelessChangeDetection,
+} from '@angular/core';
 import {
   PreloadAllModules,
   provideRouter,
@@ -18,5 +22,6 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes, withComponentInputBinding(), withPreloading(PreloadAllModules)),
     provideClientHydration(withEventReplay(), withIncrementalHydration()),
+    provideZonelessChangeDetection(),
   ],
 };
