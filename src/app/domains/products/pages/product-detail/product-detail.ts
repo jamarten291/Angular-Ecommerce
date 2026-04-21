@@ -1,9 +1,10 @@
-import { Component, inject, signal, OnInit, input, linkedSignal } from '@angular/core';
+import { Component, inject, signal, OnInit, input, linkedSignal, effect } from '@angular/core';
 import { Product } from '@shared/models/product.model';
 import { ProductService } from '@shared/services/product.service';
 import { CurrencyPipe, NgOptimizedImage } from '@angular/common';
 import { UpperCasePipe } from '@angular/common';
 import { CartService } from '@shared/services/cart.service';
+import { Meta, Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-product-detail',
@@ -12,6 +13,11 @@ import { CartService } from '@shared/services/cart.service';
   styleUrl: './product-detail.css',
 })
 export default class ProductDetail implements OnInit {
+  cartService = inject(CartService);
+  private productService = inject(ProductService);
+  titleService = inject(Title);
+  metaService = inject(Meta);
+
   readonly slug = input<string>();
   product = signal<Product | null>(null);
   cover = linkedSignal({
@@ -23,9 +29,6 @@ export default class ProductDetail implements OnInit {
       return previousValue?.value || '';
     },
   });
-  cartService = inject(CartService);
-
-  private productService = inject(ProductService);
 
   ngOnInit() {
     const productSlug = this.slug();
@@ -34,6 +37,27 @@ export default class ProductDetail implements OnInit {
         this.product.set(product);
       });
     }
+  }
+
+  constructor() {
+    effect(() => {
+      const product = this.product();
+      if (product) {
+        this.titleService.setTitle(product.title);
+        this.metaService.updateTag({
+          name: 'description',
+          content: product.description,
+        });
+        this.metaService.updateTag({
+          name: 'og:title',
+          content: product.title,
+        });
+        this.metaService.updateTag({
+          name: 'og:description',
+          content: product.description,
+        });
+      }
+    });
   }
 
   changeCoverImage(imageUri: string) {
