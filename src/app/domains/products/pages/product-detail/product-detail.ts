@@ -1,5 +1,4 @@
-import { Component, inject, signal, OnInit, input, linkedSignal, effect } from '@angular/core';
-import { Product } from '@shared/models/product.model';
+import { Component, inject, input, linkedSignal, effect, resource } from '@angular/core';
 import { ProductService } from '@shared/services/product.service';
 import { CurrencyPipe, NgOptimizedImage } from '@angular/common';
 import { UpperCasePipe } from '@angular/common';
@@ -12,16 +11,19 @@ import { Meta, Title } from '@angular/platform-browser';
   templateUrl: './product-detail.html',
   styleUrl: './product-detail.css',
 })
-export default class ProductDetail implements OnInit {
+export default class ProductDetail {
   cartService = inject(CartService);
   private productService = inject(ProductService);
   titleService = inject(Title);
   metaService = inject(Meta);
 
-  readonly slug = input<string>();
-  product = signal<Product | null>(null);
+  readonly slug = input.required<string>();
+  productResource = resource({
+    params: () => ({ slug: this.slug() }),
+    loader: ({ params }) => this.productService.getOneBySlug(params.slug),
+  });
   cover = linkedSignal({
-    source: this.product,
+    source: this.productResource.value,
     computation: (product, previousValue) => {
       if (product && product.images.length > 0) {
         return product.images[0];
@@ -30,18 +32,9 @@ export default class ProductDetail implements OnInit {
     },
   });
 
-  ngOnInit() {
-    const productSlug = this.slug();
-    if (productSlug) {
-      this.productService.getOneBySlug(productSlug).then((product) => {
-        this.product.set(product);
-      });
-    }
-  }
-
   constructor() {
     effect(() => {
-      const product = this.product();
+      const product = this.productResource.value();
       if (product) {
         this.titleService.setTitle(product.title);
         this.metaService.updateTag({
@@ -65,7 +58,7 @@ export default class ProductDetail implements OnInit {
   }
 
   addToCart() {
-    const product = this.product();
+    const product = this.productResource.value();
     if (product) {
       this.cartService.addToCart(product);
     }
