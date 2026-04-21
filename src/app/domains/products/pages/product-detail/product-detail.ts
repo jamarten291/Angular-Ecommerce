@@ -4,10 +4,11 @@ import { CurrencyPipe, NgOptimizedImage } from '@angular/common';
 import { UpperCasePipe } from '@angular/common';
 import { CartService } from '@shared/services/cart.service';
 import { MetaTags } from '@shared/services/meta-tags.service';
+import { Related } from '@products/components/related/related.component';
 
 @Component({
   selector: 'app-product-detail',
-  imports: [CurrencyPipe, UpperCasePipe, NgOptimizedImage],
+  imports: [CurrencyPipe, UpperCasePipe, NgOptimizedImage, Related],
   templateUrl: './product-detail.html',
   styleUrl: './product-detail.css',
 })

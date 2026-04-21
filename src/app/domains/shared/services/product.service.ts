@@ -27,4 +27,10 @@ export class ProductService {
       .then((response) => response.json())
       .then((data: Product) => data);
   }
+
+  async getRelatedBySlug(slug: string): Promise<Product[]> {
+    return await fetch(`${environment.apiUrl}/api/v1/products/slug/${slug}/related`)
+      .then((response) => response.json())
+      .then((data: Product[]) => data);
+  }
 }
